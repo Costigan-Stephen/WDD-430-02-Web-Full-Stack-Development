@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './cms.component';
+import { CmsComponent } from './cms.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { HeaderComponent } from './header.component';
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
@@ -10,7 +10,7 @@ import { ContactListComponent } from './contacts/contact-list/contact-list.compo
 
 @NgModule({
   declarations: [
-    AppComponent,
+    CmsComponent,
     ContactsComponent,
     HeaderComponent,
     ContactDetailComponent,
@@ -20,6 +20,6 @@ import { ContactListComponent } from './contacts/contact-list/contact-list.compo
     BrowserModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [CmsComponent]
 })
-export class AppModule { }
+export class CmsModule { }

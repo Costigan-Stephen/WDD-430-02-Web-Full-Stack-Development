@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './cms.component.html',
   styleUrls: ['./cms.component.scss']
 })
-export class AppComponent {
+export class CmsComponent {
   title = 'cms';
 }
