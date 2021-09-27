@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { AppComponent } from './cms.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -10,22 +10,22 @@ describe('AppComponent', () => {
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('should create the cms', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    const cms = fixture.componentInstance;
+    expect(cms).toBeTruthy();
   });
 
   it(`should have as title 'cms'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('cms');
+    const cms = fixture.componentInstance;
+    expect(cms.title).toEqual('cms');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('cms app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('cms cms is running!');
   });
 });
