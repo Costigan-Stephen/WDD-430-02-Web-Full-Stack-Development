@@ -1,0 +1,10 @@
+<cms-header (navEmitterEvent)=viewSelect($event)></cms-header>
+
+<div class="container">
+    <!-- <cms-documents *ngIf="navEmitter === 'documents'">
+    </cms-documents>
+    <cms-message-list *ngIf="navEmitter === 'messages'">
+    </cms-message-list> -->
+    <cms-contacts *ngIf="navEmitter === 'contacts'">
+    </cms-contacts>
+</div>
