@@ -7,14 +7,14 @@ import { Component, Output, OnInit, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @Output() navEmitterEvent = new EventEmitter<string>();
+  @Output() selectedFeatureEvent = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onNavSelect(navEmitter: string): void {
-    this.navEmitterEvent.emit(navEmitter);
+  onSelected(navEmitter: string) {
+    this.selectedFeatureEvent .emit(navEmitter);
   }
 }

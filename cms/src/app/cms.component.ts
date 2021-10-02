@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./cms.component.scss']
 })
 export class CmsComponent {
-  navEmitter: string = 'documents';
+  navEmitter: string = 'documents';  //starting layout
   title = 'WeLearn CMS';
 
   viewSelect(navEmitter: string) {
