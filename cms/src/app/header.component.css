@@ -1,1 +1,8 @@
-/* No CSS *//*# sourceMappingURL=header.component.css.map */
+/* No CSS */
+
+
+/*# sourceMappingURL=header.component.css.map */
+
+html {
+    overflow-y: scroll;
+}
