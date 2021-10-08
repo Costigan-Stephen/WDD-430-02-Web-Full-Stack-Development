@@ -11,10 +11,10 @@ export class DocumentListComponent implements OnInit {
 
   // id: string, name: string, description: string, url: string, children: Document[]
   documents: Document[] = [
-    new Document('CS 235-01', 'Designing Data Structures',       'Fall Semester - 2021, Undergraduate Program, 3.0 Credit(s)', 'https://my.byui.edu/ICS/Academics/', []),
-    new Document('CS 246-01', 'Software Design and Development', 'Fall Semester - 2021, Undergraduate Program, 3.0 Credit(s)', 'https://my.byui.edu/ICS/Academics/', []),
-    new Document('CS 432-02', 'Software Engineering III	',       'Fall Semester - 2021, Undergraduate Program, 3.0 Credit(s)', 'https://my.byui.edu/ICS/Academics/', []),
-    new Document('WDD 430-02', 'Web Full-Stack Development',     'Fall Semester - 2021, Undergraduate Program, 3.0 Credit(s)', 'https://my.byui.edu/ICS/Academics/', []),
+    new Document('1', 'CS 235-01 Designing Data Structures',       'Fall Semester - 2021, Undergraduate Program, 3.0 Credit(s)', 'https://my.byui.edu/ICS/Academics/', []),
+    new Document('2', 'CS 246-01 Software Design and Development', 'Fall Semester - 2021, Undergraduate Program, 3.0 Credit(s)', 'https://my.byui.edu/ICS/Academics/', []),
+    new Document('3', 'CS 432-02 Software Engineering III	',       'Fall Semester - 2021, Undergraduate Program, 3.0 Credit(s)', 'https://my.byui.edu/ICS/Academics/', []),
+    new Document('4', 'WDD 430-02 Web Full-Stack Development',     'Fall Semester - 2021, Undergraduate Program, 3.0 Credit(s)', 'https://my.byui.edu/ICS/Academics/', []),
   ];
 
   constructor() { }
