@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,MAAM,CAAC;EACH,SAAS,EAAE,MAAM;EACjB,WAAW,EAAE,IAAI;CACpB;;AAED,AAAA,eAAe,CAAC;EACZ,YAAY,EAAE,IAAI;EAClB,aAAa,EAAE,IAAI;CACtB",
+    "sources": [
+        "messages.component.scss"
+    ],
+    "names": [],
+    "file": "messages.component.css"
+}
