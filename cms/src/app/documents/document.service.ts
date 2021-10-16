@@ -15,11 +15,11 @@ export class DocumentService {
       this.documents = MOCKDOCUMENTS;
    }
 
-   getDocuments(){ 
+   getDocuments(): Document[]{ 
     return this.documents.slice();
    }
 
-   getDocument(id: string){ 
+   getDocument(id: string): Document { 
     for (const document of this.documents) {
       if (document.id === id) {
         return document;
