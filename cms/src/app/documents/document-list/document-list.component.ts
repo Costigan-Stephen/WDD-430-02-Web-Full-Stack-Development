@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Document } from '../document.model';
+import { DocumentService } from '../document.service';
 
 @Component({
   selector: 'cms-document-list',
@@ -10,20 +11,15 @@ export class DocumentListComponent implements OnInit {
   @Output() selectedDocumentEvent: EventEmitter<Document> = new EventEmitter<Document>();
 
   // id: string, name: string, description: string, url: string, children: Document[]
-  documents: Document[] = [
-    new Document('1', 'CS 235-01 Designing Data Structures',       'Fall Semester - 2021, Undergraduate Program, 3.0 Credit(s)', 'https://my.byui.edu/ICS/Academics/', []),
-    new Document('2', 'CS 246-01 Software Design and Development', 'Fall Semester - 2021, Undergraduate Program, 3.0 Credit(s)', 'https://my.byui.edu/ICS/Academics/', []),
-    new Document('3', 'CS 432-02 Software Engineering III	',       'Fall Semester - 2021, Undergraduate Program, 3.0 Credit(s)', 'https://my.byui.edu/ICS/Academics/', []),
-    new Document('4', 'WDD 430-02 Web Full-Stack Development',     'Fall Semester - 2021, Undergraduate Program, 3.0 Credit(s)', 'https://my.byui.edu/ICS/Academics/', []),
-  ];
+  documents: Document[] = [];
 
-  constructor() { }
+  constructor(private documentService: DocumentService) { }
 
   ngOnInit(): void {
+    this.documents = this.documentService.getDocuments();
   }
 
   onSelected(document: Document): void {
-    this.selectedDocumentEvent.emit(document);
+    this.documentService.documentSelectedEvent.emit(document);
   }
-
 }

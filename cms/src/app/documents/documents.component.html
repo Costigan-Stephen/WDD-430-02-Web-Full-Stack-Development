@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-md-5">
-        <cms-document-list (selectedDocumentEvent)="selectedDoc = $event"></cms-document-list>
+        <cms-document-list></cms-document-list>
     </div>
 
     <div class="col-md-7">
-        <cms-document-detail *ngIf="selectedDoc !== undefined && selectedDoc !== null" [selectedDoc]="selectedDoc"></cms-document-detail>
+        <cms-document-detail *ngIf="selectedDocument !== undefined && selectedDocument !== null" [selectedDocument]="selectedDocument"></cms-document-detail>
     </div>
 </div>

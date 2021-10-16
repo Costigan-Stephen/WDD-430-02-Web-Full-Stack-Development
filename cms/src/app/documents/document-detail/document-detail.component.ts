@@ -7,7 +7,8 @@ import { Document } from '../document.model';
   styleUrls: ['./document-detail.component.scss']
 })
 export class DocumentDetailComponent implements OnInit {
-  @Input() selectedDoc: Document;
+  @Input() selectedDocument: Document;
+  
   constructor() { }
 
   ngOnInit(): void {
