@@ -9,7 +9,8 @@ import { Message } from './../messages.model';
 })
 
 export class MessagesEditComponent implements OnInit {
-  currentSender = 'Steve';
+  currentSender = '18';
+
   @ViewChild('subject', { static: true }) subject: ElementRef;
   @ViewChild('messageText', { static: true }) messageText: ElementRef;
 

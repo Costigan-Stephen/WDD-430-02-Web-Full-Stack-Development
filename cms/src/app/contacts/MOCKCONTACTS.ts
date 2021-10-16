@@ -119,7 +119,15 @@ export const MOCKCONTACTS: Contact[] = [
     imageUrl: '../../assets/images/thompsonda.jpg',
     group: null
   },
-
+  {
+    id: '18',
+    name: 'Stephen Costigan',
+    email: 'steveoh@byui.edu',
+    phone: '123-456-7890',
+    imageUrl: '../../assets/images/costiganst.jpg',
+    group: null
+  },
+  
   // teams
   // index 13
   {
@@ -185,7 +193,15 @@ export const MOCKCONTACTS: Contact[] = [
       phone: '208-496-3773',
       imageUrl: '../../assets/images/olavesonm.jpg',
       group: null
-    }
+    },
+    {
+      id: '18',
+      name: 'Stephen Costigan',
+      email: 'steveoh@byui.edu',
+      phone: '123-456-7890',
+      imageUrl: '../../assets/images/costiganst.jpg',
+      group: null
+    },
   ]
   },
 
@@ -215,7 +231,15 @@ export const MOCKCONTACTS: Contact[] = [
       phone: '208-496-3776',
       imageUrl: '../../assets/images/thompsonda.jpg',
       group: null
-    }
+    },
+    {
+      id: '18',
+      name: 'Stephen Costigan',
+      email: 'steveoh@byui.edu',
+      phone: '123-456-7890',
+      imageUrl: '../../assets/images/costiganst.jpg',
+      group: null
+    },
   ]
   },
 
