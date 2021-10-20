@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import { CmsComponent } from './cms.component';
 import { HeaderComponent } from './header.component';
@@ -20,6 +22,17 @@ import { MessagesListComponent } from './messages/messages-list/messages-list.co
 import { MessagesEditComponent } from './messages/messages-edit/messages-edit.component';
 // DIRECTIVES
 import { DropDownDirective } from './shared/dropdown.directive';
+import { HomeComponent } from './home/home.component';
+
+
+const appRoutes: Routes = [
+  {path: '', component: HomeComponent },
+  {path: 'messages', component: MessagesComponent },
+  {path: 'documents', component: DocumentsComponent },
+  {path: 'documents/:id', component: DocumentItemComponent },
+  {path: 'contacts', component: ContactListComponent },
+  {path: 'contacts/:id', component: ContactItemComponent }
+];
 
 @NgModule({
   declarations: [
@@ -37,10 +50,13 @@ import { DropDownDirective } from './shared/dropdown.directive';
     MessagesItemComponent,
     MessagesListComponent,
     MessagesEditComponent,
-    DropDownDirective
+    DropDownDirective,
+    HomeComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [CmsComponent]

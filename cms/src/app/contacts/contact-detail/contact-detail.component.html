@@ -1,16 +1,18 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <div class="col-xs-2">
-            <img [src]="contact.imageUrl" alt="{{ contact.name }}" class="img-responsive" style="max-height: 100px;">
-        </div>
         <div class="row">
-            <div class="col-xs-6">
-                <h2>{{ contact.name }}</h2>
+            <div class="col-xs-2">
+                <img [src]="contact.imageUrl" alt="{{ contact.name }}" class="img-responsive" style="max-height: 100px;">
             </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2>{{ contact.name }}</h2>
+                </div>
 
-            <div class="col-xs-3 pull-right">
-                <a type="button" class="btn btn-primary btn-md" (click)="onEditDetails()">Edit</a> &nbsp;
-                <a type="button" class="btn btn-danger btn-md" (click)="onDeleteClick()">Delete</a>
+                <div class="col-xs-3 pull-right">
+                    <a type="button" class="btn btn-primary btn-md" (click)="onEditDetails()">Edit</a> &nbsp;
+                    <a type="button" class="btn btn-danger btn-md" (click)="onDeleteClick()">Delete</a>
+                </div>
             </div>
         </div>
     </div>
