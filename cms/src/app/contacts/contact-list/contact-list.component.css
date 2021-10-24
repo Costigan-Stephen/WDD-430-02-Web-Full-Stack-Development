@@ -1,1 +1,15 @@
-/* No CSS *//*# sourceMappingURL=contact-list.component.css.map */
+.center-panel {
+  margin-left: auto;
+  margin-right: auto;
+  width: 38rem;
+}
+
+.pad-left-right {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.contacts {
+  width: 42rem;
+}
+/*# sourceMappingURL=contact-list.component.css.map */

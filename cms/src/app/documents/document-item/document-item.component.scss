@@ -7,3 +7,16 @@
     float: left;
     padding: .25rem
 }
+
+.documentDiv:hover {
+    background-color: #8ecaff;
+    color: white !important;
+    border-color: #2e6da4;
+}
+
+button:focus,
+a:focus {
+    background-color: #337ab7;
+    color: white !important;
+    border-color: #2e6da4;
+}

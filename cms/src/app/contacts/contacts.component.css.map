@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAAA,AAAA,aAAa,CAAC;EACV,WAAW,EAAE,IAAI;EACjB,YAAY,EAAE,IAAI;EAClB,KAAK,EAAE,KAAK;CACf;;AAED,AAAA,MAAM,CAAC;EACH,SAAS,EAAE,MAAM;EACjB,WAAW,EAAE,IAAI;CACpB;;AAED,AAAA,eAAe,CAAC;EACZ,YAAY,EAAE,IAAI;EAClB,aAAa,EAAE,IAAI;CACtB;;AAGD,uDAAuD",
+    "mappings": "AAAA,uDAAuD",
     "sources": [
         "contacts.component.scss"
     ],

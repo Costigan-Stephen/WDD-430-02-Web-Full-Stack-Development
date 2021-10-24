@@ -15,7 +15,7 @@ export class ContactsComponent implements OnInit {
   constructor(private contactService: ContactService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.contactService.contactSelected
+    this.contactService.contactSelectedEvent
     .subscribe( 
       (contact: Contact) => { this.selectedContact = contact; } 
     );

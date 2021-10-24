@@ -9,7 +9,7 @@ import { ContactService } from '../contact.service';
   encapsulation: ViewEncapsulation.Emulated // styles only contained in this component. Might use later
 })
 export class ContactListComponent implements OnInit {
-  @Output() selectedContactEvent = new EventEmitter<Contact>();
+  // @Output() selectedContactEvent = new EventEmitter<Contact>();
 
   contacts: Contact[] = [];
   
@@ -17,10 +17,11 @@ export class ContactListComponent implements OnInit {
 
   ngOnInit(): void {
     this.contacts = this.contactService.getContacts();
+    this.contactService.contactChangedEvent.subscribe((contacts) => this.contacts = contacts.slice());
   }
 
-  onSelected(contact: Contact): void { 
-    this.contactService.contactSelected.emit(contact);
-  }
+  // onSelected(contact: Contact): void { 
+  //   this.contactService.contactSelectedEvent.emit(contact);
+  // }
 
 }

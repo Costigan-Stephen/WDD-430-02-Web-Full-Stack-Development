@@ -1,4 +1,4 @@
-import {Injectable, EventEmitter} from '@angular/core';
+import {Injectable, EventEmitter, Output} from '@angular/core';
 
 import {Document} from './document.model';
 import {MOCKDOCUMENTS} from './MOCKDOCUMENTS';
@@ -8,8 +8,11 @@ import {MOCKDOCUMENTS} from './MOCKDOCUMENTS';
 })
 
 export class DocumentService {
+  @Output() documentSelectedEvent: EventEmitter<Document> = new EventEmitter<Document>();
+  @Output() documentChangedEvent: EventEmitter<Document[]> = new EventEmitter<Document[]>();
+
    private documents: Document [] =[];
-   documentSelectedEvent = new EventEmitter<Document>();
+   //documentSelectedEvent = new EventEmitter<Document>();
 
    constructor() {
       this.documents = MOCKDOCUMENTS;
@@ -26,5 +29,19 @@ export class DocumentService {
       }
     }
     return null;
+  }
+
+  deleteDocument(document: Document): void {
+    if (!document) {
+      return;
+    }
+
+    const pos = this.documents.indexOf(document);
+    if (pos < 0) {
+      return;
+    }
+    
+    this.documents.splice(pos, 1);
+    this.documentChangedEvent.emit(this.documents.slice());
   }
 }

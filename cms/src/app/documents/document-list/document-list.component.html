@@ -5,13 +5,13 @@
                 <h1 class="pull-left title" style="margin-top: 0;">Documents</h1>
             </div>
             <div class="col-sm-4" style="margin-top: 5px;">
-                <button type="button" class="btn btn-success pull-right">Add Document</button>
+                <button type="button" class="btn btn-success pull-right" routerLink="/documents/new">Add Document</button>
             </div>
         </div>
     </div>
     <div class="panel-body">
         <div class="center-panel">
-            <cms-document-item *ngFor="let document of documents " [document]="document " (click)="onSelected(document) ">
+            <cms-document-item *ngFor="let document of documents " [document]="document ">
             </cms-document-item>
         </div>
     </div>

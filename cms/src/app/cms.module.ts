@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
 
 import { CmsComponent } from './cms.component';
 import { HeaderComponent } from './header.component';
@@ -10,11 +9,13 @@ import { ContactsComponent } from './contacts/contacts.component';
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 import { ContactListComponent } from './contacts/contact-list/contact-list.component';
 import { ContactItemComponent } from './contacts/contact-item/contact-item.component';
+import { ContactEditComponent } from './contacts/contact-edit/contact-edit.component';
 // DOCUMENTS
 import { DocumentsComponent } from './documents/documents.component';
 import { DocumentListComponent } from './documents/document-list/document-list.component';
 import { DocumentDetailComponent } from './documents/document-detail/document-detail.component';
 import { DocumentItemComponent } from './documents/document-item/document-item.component';
+import { DocumentEditComponent } from './documents/document-edit/document-edit.component';
 // MESSAGES
 import { MessagesComponent } from './messages/messages.component';
 import { MessagesItemComponent } from './messages/messages-item/messages-item.component';
@@ -23,16 +24,12 @@ import { MessagesEditComponent } from './messages/messages-edit/messages-edit.co
 // DIRECTIVES
 import { DropDownDirective } from './shared/dropdown.directive';
 import { HomeComponent } from './home/home.component';
+import { AppRoutingModule } from './cms-routing.moule';
+
+// SERVICES
+import { AuthGuard } from './auth-guard.service';
 
 
-const appRoutes: Routes = [
-  {path: '', component: HomeComponent },
-  {path: 'messages', component: MessagesComponent },
-  {path: 'documents', component: DocumentsComponent },
-  {path: 'documents/:id', component: DocumentItemComponent },
-  {path: 'contacts', component: ContactListComponent },
-  {path: 'contacts/:id', component: ContactItemComponent }
-];
 
 @NgModule({
   declarations: [
@@ -51,14 +48,16 @@ const appRoutes: Routes = [
     MessagesListComponent,
     MessagesEditComponent,
     DropDownDirective,
-    HomeComponent
+    HomeComponent,
+    DocumentEditComponent,
+    ContactEditComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [CmsComponent]
 })
 export class CmsModule { }

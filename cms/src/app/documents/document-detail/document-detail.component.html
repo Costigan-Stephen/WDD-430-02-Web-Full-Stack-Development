@@ -6,9 +6,9 @@
             </div>
 
             <div class="btn-toolbar pull-right" style="margin-top: 15px; margin-right: 10px;">
-                <a type="button" class="btn btn-primary btn-md" (click)="onViewClick()">View</a>
-                <a type="button" class="btn btn-primary btn-md" (click)="onEditDetails()">Edit</a>
-                <a type="button" class="btn btn-danger btn-md" (click)="onDeleteClick()">Delete</a>
+                <a type="button" class="btn btn-primary btn-md" (click)="onView()">View</a>
+                <a type="button" class="btn btn-primary btn-md" routerLink="/documents/{{selectedDocument.id}}/edit">Edit</a>
+                <a type="button" class="btn btn-danger btn-md" (click)="onDelete()">Delete</a>
             </div>
         </div>
     </div>
