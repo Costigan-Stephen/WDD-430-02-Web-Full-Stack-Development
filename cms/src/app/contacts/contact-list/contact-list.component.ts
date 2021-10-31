@@ -1,4 +1,6 @@
-import { Component, OnInit, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
 
@@ -10,7 +12,7 @@ import { ContactService } from '../contact.service';
 })
 export class ContactListComponent implements OnInit {
   // @Output() selectedContactEvent = new EventEmitter<Contact>();
-
+  subscription: Subscription;
   contacts: Contact[] = [];
   
   constructor(private contactService: ContactService) { }
@@ -18,10 +20,9 @@ export class ContactListComponent implements OnInit {
   ngOnInit(): void {
     this.contacts = this.contactService.getContacts();
     this.contactService.contactChangedEvent.subscribe((contacts) => this.contacts = contacts.slice());
+    this.subscription = this.contactService.contactListChangedEvent.subscribe((contactsList: Contact[]) => this.contacts = contactsList.slice());
   }
 
-  // onSelected(contact: Contact): void { 
-  //   this.contactService.contactSelectedEvent.emit(contact);
-  // }
+  ngOnDestroy(): void { this.subscription.unsubscribe(); }
 
 }

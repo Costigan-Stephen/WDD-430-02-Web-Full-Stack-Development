@@ -1,4 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { Document } from '../document.model';
 import { DocumentService } from '../document.service';
 
@@ -11,6 +13,7 @@ export class DocumentListComponent implements OnInit {
   //@Output() selectedDocumentEvent: EventEmitter<Document> = new EventEmitter<Document>();
 
   // id: string, name: string, description: string, url: string, children: Document[]
+  subscription: Subscription;
   documents: Document[] = [];
 
   constructor(private documentService: DocumentService) { }
@@ -18,9 +21,8 @@ export class DocumentListComponent implements OnInit {
   ngOnInit(): void {
     this.documents = this.documentService.getDocuments();
     this.documentService.documentChangedEvent.subscribe((documents) => this.documents = documents.slice())
+    this.subscription = this.documentService.documentListChangedEvent.subscribe((documentsList: Document[]) => this.documents = documentsList.slice());
   }
 
-  // onSelected(document: Document): void {
-  //   this.documentService.documentSelectedEvent.emit(document);
-  // }
+  ngOnDestroy(): void { this.subscription.unsubscribe(); }
 }

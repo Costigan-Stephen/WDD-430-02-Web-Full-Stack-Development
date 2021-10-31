@@ -1,4 +1,5 @@
 import {Injectable, EventEmitter, Output} from '@angular/core';
+import { Subject } from 'rxjs';
 
 import {Contact} from './contact.model';
 import {MOCKCONTACTS} from './MOCKCONTACTS';
@@ -10,31 +11,68 @@ import {MOCKCONTACTS} from './MOCKCONTACTS';
 export class ContactService {
   @Output() contactSelectedEvent: EventEmitter<Contact> = new EventEmitter<Contact>();
   @Output() contactChangedEvent: EventEmitter<Contact[]> = new EventEmitter<Contact[]>();
+  contactListChangedEvent = new Subject<Contact[]>();
+
    private contacts: Contact [] =[];
-   //contactSelected = new EventEmitter<Contact>();
+   private contactsListClone: Contact [] =[];
+
+   maxContactId: number;
 
    constructor() {
+      this.maxContactId = this.getMaxId();
       this.contacts = MOCKCONTACTS;
    }
+
+   getMaxId(): number {
+    let maxId = 0;
+    for (const contact of this.contacts) {
+      const currentId = parseInt(contact.id, 10);
+      if (currentId > maxId)
+        maxId = currentId; 
+    }
+    return maxId;
+  }
 
    getContacts(): Contact[]{ 
     return this.contacts.slice();
    }
 
    getContact(id: string): Contact{ 
-    for (const contact of this.contacts) {
-      if (contact.id === id) { return contact; }
-    }
+    for (const contact of this.contacts) 
+      if (contact.id === id) 
+        return contact;
+    
     return null;
   }
 
   deleteContact(contact: Contact): void {
-    if ( !contact ) { return; }
+    if ( !contact ) return; 
 
     const pos = this.contacts.indexOf(contact);
-    if ( pos < 0 ) { return; }
+    if ( pos < 0 ) return; 
 
     this.contacts.splice(pos, 1);
+    this.contactsListClone = this.contacts.slice()
     this.contactChangedEvent.emit(this.contacts.slice());
+  }
+
+  addContact(newContact: Contact): void {
+    if (!newContact) return;
+
+    this.maxContactId++;
+    newContact.id = this.maxContactId.toString();
+    this.contacts.push(newContact);
+    this.contactListChangedEvent.next(this.contacts.slice());
+  }
+
+  updateContact(originalContact: Contact, newContact: Contact): void {
+    if (!originalContact || !newContact) return;
+    
+    const position = this.contacts.indexOf(originalContact);
+    if (position < 0) return;
+    
+    newContact.id = originalContact.id;
+    this.contacts[position] = newContact;
+    this.contactListChangedEvent.next(this.contacts.slice());
   }
 }
