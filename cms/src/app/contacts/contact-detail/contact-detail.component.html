@@ -27,5 +27,16 @@
                 <strong> Phone: {{ contact.phone }}</strong>
             </div>
         </div>
+        <div class="row" *ngIf="groupContacts.length > 0">
+            <div class="col-xs-12">
+                <h3>Contacts in Team</h3>
+                <div *ngFor="let contact of groupContacts; let i = index">
+                    <div>
+                        <cms-contact-item class="col-sm-12" [contact]="contact"></cms-contact-item>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>

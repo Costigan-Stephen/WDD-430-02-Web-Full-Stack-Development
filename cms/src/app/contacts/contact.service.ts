@@ -33,11 +33,11 @@ export class ContactService {
     return maxId;
   }
 
-   getContacts(): Contact[]{ 
+  getContacts(): Contact[]{ 
     return this.contacts.slice();
-   }
+  }
 
-   getContact(id: string): Contact{ 
+  getContact(id: string): Contact{ 
     for (const contact of this.contacts) 
       if (contact.id === id) 
         return contact;

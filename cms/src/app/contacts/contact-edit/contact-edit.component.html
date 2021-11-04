@@ -36,7 +36,13 @@
                 <div class="form-group">
                     <label for="groupList">Group Contacts:</label>
 
-                    <div class="row" id="groupList" style="min-height: 3rem;">
+                    <!-- Error Checking -->
+                    <div class="alert alert-danger" *ngIf="contactAdded == false && contactSelf == false">Contact cannot be added because it’s already in the group.</div>
+                    <div class="alert alert-warning" *ngIf="contactSelf == true">Cannot add the active contact to group.</div>
+                    <div class="alert alert-success" *ngIf="contactAdded">Contact added Successfully.</div>
+                    <!-- End Error Checking -->
+
+                    <div class="row" id="groupList" style="min-height: 3rem;" dnd-droppable [dropZones]="['contactGroup']" (onDropSuccess)="addToGroup($event)">
 
                         <div *ngFor="let contact of groupContacts; let i = index">
                             <div>

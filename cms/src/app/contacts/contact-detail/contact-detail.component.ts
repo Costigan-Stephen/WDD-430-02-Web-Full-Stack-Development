@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Contact } from '../contact.model';
 import { ContactService } from '../contact.service';
 
@@ -12,13 +12,21 @@ import { ContactService } from '../contact.service';
 export class ContactDetailComponent implements OnInit {
   // @Input() contact: Contact;
   contact: Contact;
+  groupContacts: Contact[] = [];
 
   constructor(private contactService: ContactService, 
               private router:         Router, 
               private route:          ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => this.contact = this.contactService.getContact(params.id));
+    
+    this.route.params.subscribe((params: Params) => {
+      this.groupContacts = [];
+      this.contact = this.contactService.getContact(params.id)
+      
+      if (this.contact?.group && this.contact?.group?.length > 0) 
+          this.groupContacts = this.contact?.group;
+    });
   }
 
   onDeleteClick(){
@@ -27,5 +35,7 @@ export class ContactDetailComponent implements OnInit {
       this.router.navigate(['/contacts']);
     }
   }
+
+
 
 }
