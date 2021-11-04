@@ -19,15 +19,16 @@ export class DocumentService {
   //documentSelectedEvent = new EventEmitter<Document>();
 
   constructor() {
-    this.maxDocId  = this.getMaxId();
     this.documents = MOCKDOCUMENTS;
+    this.maxDocId  = this.getMaxId();
   }
    
   getMaxId(): number {
     let maxId = 0;
     for (const document of this.documents) {
       const currentId = parseInt(document.id, 10);
-      if (currentId > maxId) maxId = currentId;
+      if (currentId > maxId) 
+        maxId = currentId;
     }
     return maxId;
   }
@@ -56,7 +57,6 @@ export class DocumentService {
   
   addDocument(newDocument: Document): void {
     if (!newDocument) return;
-
     this.maxDocId++;
     newDocument.id = this.maxDocId.toString();
     this.documents.push(newDocument);
