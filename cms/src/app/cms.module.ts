@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { DndModule } from 'ng2-dnd';
 
 import { CmsComponent } from './cms.component';
 import { HeaderComponent } from './header.component';
@@ -57,6 +58,7 @@ import { AuthGuard } from './auth-guard.service';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    DndModule.forRoot(),
     AppRoutingModule
   ],
   providers: [AuthGuard],
