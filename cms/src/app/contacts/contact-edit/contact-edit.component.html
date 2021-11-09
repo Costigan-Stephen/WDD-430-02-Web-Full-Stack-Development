@@ -27,6 +27,9 @@
 
             <div class="row">
                 <div class="col-sm-12 form-group">
+                    <div style="background-color: darkgray; padding: 5px;">
+                        <img [src]="imageUrl.value" alt="{{ name.value }}" class="img-responsive" style="max-height: 200px; margin-left: auto; margin-right: auto; ">
+                    </div>
                     <label for="imageUrl">Image URL:</label>
                     <input type="text" id="imageUrl" name="imageUrl" [ngModel]="contact?.imageUrl" #imageUrl="ngModel" class="form-control" size="150" max="255">
                 </div>
