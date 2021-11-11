@@ -30,6 +30,7 @@ import { AppRoutingModule } from './cms-routing.moule';
 
 // SERVICES
 import { AuthGuard } from './auth-guard.service';
+import { ContactsFilterPipe } from './contacts/contacts-filter.pipe';
 
 
 
@@ -53,6 +54,7 @@ import { AuthGuard } from './auth-guard.service';
     HomeComponent,
     DocumentEditComponent,
     ContactEditComponent,
+    ContactsFilterPipe,
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,7 @@ export class ContactListComponent implements OnInit {
   // @Output() selectedContactEvent = new EventEmitter<Contact>();
   subscription: Subscription;
   contacts: Contact[] = [];
+  searchterm: string;
   
   constructor(private contactService: ContactService) { }
 
@@ -21,6 +22,10 @@ export class ContactListComponent implements OnInit {
     this.contacts = this.contactService.getContacts();
     this.contactService.contactChangedEvent.subscribe((contacts) => this.contacts = contacts.slice());
     this.subscription = this.contactService.contactListChangedEvent.subscribe((contactsList: Contact[]) => this.contacts = contactsList.slice());
+  }
+
+  search(value: string) {
+    this.searchterm = value;
   }
 
   ngOnDestroy(): void { this.subscription.unsubscribe(); }
