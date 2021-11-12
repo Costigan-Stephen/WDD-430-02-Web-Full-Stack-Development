@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <div class="row">
             <div class="col-xs-2">
-                <img [src]="contact.imageUrl" alt="{{ contact.name }}" class="img-responsive" style="max-height: 100px;">
+                <img src="{{ contact.imageUrl | imageFolder }}" alt="{{ contact.name }}" class="img-responsive" style="max-height: 100px;">
             </div>
             <div class="row">
                 <div class="col-xs-6">

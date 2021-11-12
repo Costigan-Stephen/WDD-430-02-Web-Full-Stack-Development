@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Contact } from './contact.model';
 import { ContactService } from './contact.service';
 
+
 @Component({
   selector: 'cms-contacts',
   templateUrl: './contacts.component.html',

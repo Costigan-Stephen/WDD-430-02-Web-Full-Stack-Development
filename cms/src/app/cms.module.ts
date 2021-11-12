@@ -30,7 +30,10 @@ import { AppRoutingModule } from './cms-routing.moule';
 
 // SERVICES
 import { AuthGuard } from './auth-guard.service';
+
+// PIPES
 import { ContactsFilterPipe } from './contacts/contacts-filter.pipe';
+import { ImagePipe } from './contacts/image.pipe'
 
 
 
@@ -55,6 +58,7 @@ import { ContactsFilterPipe } from './contacts/contacts-filter.pipe';
     DocumentEditComponent,
     ContactEditComponent,
     ContactsFilterPipe,
+    ImagePipe
   ],
   imports: [
     BrowserModule,

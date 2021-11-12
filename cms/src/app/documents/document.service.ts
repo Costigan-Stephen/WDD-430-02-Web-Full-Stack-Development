@@ -1,6 +1,7 @@
 import {Injectable, EventEmitter, Output} from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 import {Document} from './document.model';
 import {MOCKDOCUMENTS} from './MOCKDOCUMENTS';
@@ -13,11 +14,11 @@ export class DocumentService {
   @Output() documentSelectedEvent: EventEmitter<Document> = new EventEmitter<Document>();
   @Output() documentChangedEvent: EventEmitter<Document[]> = new EventEmitter<Document[]>();
   documentListChangedEvent = new Subject<Document[]>();
-  HTTP_URL = "https://wdd430-w9-default-rtdb.firebaseio.com/documents.json";
+  HTTP_URL = environment.apiURL + "/documents.json";
 
   maxDocId: number;
   private documents: Document [] =[];
-  private documentsListClone: Document [] =[];
+  //private documentsListClone: Document [] =[];
   //documentSelectedEvent = new EventEmitter<Document>();
 
   constructor(private HTTP: HttpClient) {
@@ -60,8 +61,7 @@ export class DocumentService {
     if (pos < 0) return;
     
     this.documents.splice(pos, 1);
-    this.documentsListClone = this.documents.slice()
-    this.documentChangedEvent.next(this.documents.slice());
+    this.storeDocuments();
   }
 
   
@@ -70,7 +70,7 @@ export class DocumentService {
     this.maxDocId++;
     newDocument.id = this.maxDocId.toString();
     this.documents.push(newDocument);
-    this.documentListChangedEvent.next(this.documents.slice());
+    this.storeDocuments();
   }
 
   updateDocument(originalDocument: Document, newDocument: Document): void {
@@ -81,7 +81,7 @@ export class DocumentService {
     
     newDocument.id = originalDocument.id;
     this.documents[position] = newDocument;
-    this.documentListChangedEvent.next(this.documents.slice());
+    this.storeDocuments();
   }
 
   storeDocuments(){

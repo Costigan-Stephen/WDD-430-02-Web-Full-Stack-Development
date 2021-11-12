@@ -4,9 +4,10 @@
     </div>
     <span class="pull-right">
         <img 
-        [src]="contact.imageUrl" 
+        src="{{ contact.imageUrl | imageFolder }}" 
         alt="{{ contact.name }}" 
         class="img-responsive" 
         style="max-height: 50px;">
     </span>
 </a>
+<!-- ../assets/folder.png -->
