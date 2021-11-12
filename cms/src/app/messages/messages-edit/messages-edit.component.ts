@@ -9,7 +9,7 @@ import { Message } from './../messages.model';
 })
 
 export class MessagesEditComponent implements OnInit {
-  currentSender = '18';
+  currentSender = '19';
 
   @ViewChild('subject', { static: true }) subject: ElementRef;
   @ViewChild('messageText', { static: true }) messageText: ElementRef;
@@ -23,14 +23,17 @@ export class MessagesEditComponent implements OnInit {
   }
 
   onSendMessage() {
-    const id = new Date().getTime().toString();
-    const newMessage = new Message(
-      id, 
-      this.subject.nativeElement.value, 
-      this.messageText.nativeElement.value, 
-      this.currentSender
-    );
-    this.messageService.addMessage(newMessage);
+    if(this.messageText.nativeElement.value && this.subject.nativeElement.value){
+      const id = new Date().getTime().toString();
+      const newMessage = new Message(
+        id, 
+        this.subject.nativeElement.value, 
+        this.messageText.nativeElement.value, 
+        this.currentSender
+      );
+      this.onClear();
+      this.messageService.addMessage(newMessage);
+    }
   }
 
   onClear() {
