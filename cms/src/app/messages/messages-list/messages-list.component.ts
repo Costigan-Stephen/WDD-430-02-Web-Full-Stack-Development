@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+
+import { Contact } from 'src/app/contacts/contact.model';
+import { ContactService } from 'src/app/contacts/contact.service';
+
 import { MessageService } from '../message.service';
 import { Message } from '../messages.model';
 @Component({
@@ -10,6 +14,7 @@ import { Message } from '../messages.model';
 
 export class MessagesListComponent implements OnInit {
   messages: Message[] = [];
+  contacts: Contact[] = [];
   subscription: Subscription;
 
   constructor(private messageService: MessageService) { }
@@ -17,13 +22,14 @@ export class MessagesListComponent implements OnInit {
   ngOnInit(): void {
     this.messages = this.messageService.getMessages();
     this.messageService.messageChangedEvent.subscribe((messages) => this.messages = messages.slice());
-    this.subscription = this.messageService.messageChangedEvent.subscribe((messageList: Message[])=> this.messages = messageList.slice());
+    
+    //this.subscription = this.messageService.messageChangedEvent.subscribe((messageList: Message[])=> this.messages = messageList);
   }
 
   onAddMessage(message: Message) {
     this.messageService.addMessage(message);
   }
 
-  ngOnDestroy(): void { this.subscription?.unsubscribe(); }
+  //ngOnDestroy(): void { this.subscription?.unsubscribe(); }
 
 }

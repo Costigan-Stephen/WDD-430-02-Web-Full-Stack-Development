@@ -5,6 +5,7 @@ import { Observable, Observer, Subject } from 'rxjs';
 
 import {MOCKMESSAGES} from './MOCKMESSAGES';
 import { Message} from './messages.model';
+import { Contact } from '../contacts/contact.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +14,11 @@ import { Message} from './messages.model';
 export class MessageService {
   @Output() messageChangedEvent: EventEmitter<Message[]> = new EventEmitter<Message[]>();
   messageListChangedEvent = new Subject<Message[]>();
-  HTTP_URL = environment.apiURL + "/messages.json";
+  
+  contacts: Contact [] =[];
+  HTTP_URL  = environment.apiURL + "/messages.json";
 
-  private messages: Message [] = [];
-
-  resolveAfter2Seconds(x: number) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(x);
-      }, 2000);
-    });
-  }
-
+  messages: Message [] = [];
 
   constructor(private HTTP: HttpClient) { 
     this.fetchPost();
@@ -70,6 +64,16 @@ export class MessageService {
     this.messages.push(message);
     this.storeMessages();
     this.messageChangedEvent.emit(this.messages.slice());
+  }
+
+  deleteMessage(message: Message): void {
+    if (!message) return;
+
+    const pos = this.messages.indexOf(message);
+    if (pos < 0) return;
+    
+    this.messages.splice(pos, 1);
+    this.storeMessages();
   }
 
   storeMessages(){

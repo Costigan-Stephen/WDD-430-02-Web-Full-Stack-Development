@@ -16,7 +16,7 @@ import { ContactsComponent } from "./contacts/contacts.component";
 const appRoutes: Routes = [
     //{path: '', component: DocumentsComponent },
     { path: '', redirectTo: '/documents', pathMatch: 'full' },
-    {path: 'messages', component: MessagesComponent },
+    { path: 'messages', component: MessagesComponent },
 
     //{path: 'messages', canActivate: [AuthGuard], component: MessagesComponent }, // This is temporarily added to show authorization checking
     {path: 'documents',   component: DocumentsComponent, children: [

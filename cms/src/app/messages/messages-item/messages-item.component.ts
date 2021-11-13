@@ -4,6 +4,7 @@ import { Contact } from './../../contacts/contact.model';
 import { ContactService } from './../../contacts/contact.service';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'cms-messages-item',
