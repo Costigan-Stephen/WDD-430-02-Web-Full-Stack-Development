@@ -32,6 +32,7 @@ export class DocumentService {
         this.documentListChangedEvent.next(this.documents.slice());
       },
       (error: any) => { console.log(error); });
+      console.log(this.documents);
   }
    
   getMaxId(): number {
