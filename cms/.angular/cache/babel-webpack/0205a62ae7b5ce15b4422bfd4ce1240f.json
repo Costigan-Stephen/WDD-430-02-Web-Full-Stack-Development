@@ -1,0 +1,1 @@
+{"ast":null,"code":"module.exports = {\n  'isObj': function (obj) {\n    return obj != null && obj.constructor.name == 'Object';\n  }\n};","map":null,"metadata":{},"sourceType":"script"}

@@ -14,7 +14,8 @@ export class ContactService {
   @Output() contactSelectedEvent: EventEmitter<Contact> = new EventEmitter<Contact>();
   @Output() contactChangedEvent: EventEmitter<Contact[]> = new EventEmitter<Contact[]>();
   contactListChangedEvent = new Subject<Contact[]>();
-  HTTP_URL = environment.apiURL + "/contacts.json";
+  //HTTP_URL = environment.apiURL + "/contacts.json";
+  HTTP_URL = environment.LOCALURL + "contacts";
 
    private contacts: Contact [] =[];
    //private contactsListClone: Contact [] =[];
@@ -49,21 +50,28 @@ export class ContactService {
   }
 
   getContact(id: string): Contact{ 
-    for (const contact of this.contacts) 
+    for (const contact of this.contacts) {
       if (contact.id === id) 
         return contact;
-    
+    }
     return null;
   }
 
   deleteContact(contact: Contact): void {
     if ( !contact ) return; 
 
-    const pos = this.contacts.indexOf(contact);
-    if ( pos < 0 ) return; 
+    const position = this.contacts.indexOf(contact);
+    if ( position < 0 ) return; 
 
-    this.contacts.splice(pos, 1);
-    this.storeContacts();
+    this.HTTP.delete(this.HTTP_URL +'/' + contact.id)
+      .subscribe(
+        () => {
+          this.contacts.splice(position, 1);
+          this.contactListChangedEvent.next(this.contacts.slice());
+        }
+      );
+    // this.contacts.splice(pos, 1);
+    // this.storeContacts();
     //this.contactsListClone = this.contacts.slice()
     //this.contactChangedEvent.emit(this.contacts.slice());
   }
@@ -71,11 +79,31 @@ export class ContactService {
   addContact(newContact: Contact): void {
     if (!newContact) return;
 
-    this.maxContactId++;
-    newContact.id = this.maxContactId.toString();
-    this.contacts.push(newContact);
-    //this.contactListChangedEvent.next(this.contacts.slice());
-    this.storeContacts();
+    // make sure id of the new Document is empty
+    newContact.id = '';
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+     });
+
+    // add to database
+    this.HTTP.post<{ 
+      message: string, 
+      newContact: Contact }>
+      (this.HTTP_URL, newContact, { headers: headers })
+      .subscribe(
+        (responseData) => {
+          // add new document to documents
+          this.contacts.push(responseData.newContact);
+          this.contactListChangedEvent.next(this.contacts.slice());
+        }
+      );
+
+    // this.maxContactId++;
+    // newContact.id = this.maxContactId.toString();
+    // this.contacts.push(newContact);
+    // //this.contactListChangedEvent.next(this.contacts.slice());
+    // this.storeContacts();
   }
 
   updateContact(originalContact: Contact, newContact: Contact): void {
@@ -85,15 +113,27 @@ export class ContactService {
     if (position < 0) return;
     
     newContact.id = originalContact.id;
-    this.contacts[position] = newContact;
-    this.storeContacts();
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    // update database
+    this.HTTP.put( this.HTTP_URL + "/" + originalContact.id,
+      newContact, { headers: headers })
+      .subscribe(
+        () => {
+          this.contacts[position] = newContact;
+          this.contactListChangedEvent.next(this.contacts.slice());
+        }
+      );
+    // this.contacts[position] = newContact;
+    // this.storeContacts();
     //this.contactListChangedEvent.next(this.contacts.slice());
   }
 
-  storeContacts(){
-    const docsString = JSON.stringify(this.contacts);
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
-    this.HTTP.put<Document[]>(this.HTTP_URL, docsString, httpOptions)
-      .subscribe(() => this.contactListChangedEvent.next(this.contacts.slice()));
-  }
+  // storeContacts(){
+  //   const docsString = JSON.stringify(this.contacts);
+  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+  //   this.HTTP.put<Document[]>(this.HTTP_URL, docsString, httpOptions)
+  //     .subscribe(() => this.contactListChangedEvent.next(this.contacts.slice()));
+  // }
 }

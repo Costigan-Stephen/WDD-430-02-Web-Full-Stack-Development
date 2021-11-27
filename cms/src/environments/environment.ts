@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiURL: "https://wdd430-w9-default-rtdb.firebaseio.com"
+  apiURL: "https://wdd430-w9-default-rtdb.firebaseio.com",
+  LOCALURL: "http://localhost:3000/"
 };
 
 /*

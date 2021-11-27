@@ -14,7 +14,8 @@ export class DocumentService {
   @Output() documentSelectedEvent: EventEmitter<Document> = new EventEmitter<Document>();
   @Output() documentChangedEvent: EventEmitter<Document[]> = new EventEmitter<Document[]>();
   documentListChangedEvent = new Subject<Document[]>();
-  HTTP_URL = environment.apiURL + "/documents.json";
+  //HTTP_URL = environment.apiURL + "/documents.json";
+  HTTP_URL = environment.LOCALURL + "documents";
 
   maxDocId: number;
   private documents: Document [] =[];
@@ -58,20 +59,47 @@ export class DocumentService {
   deleteDocument(document: Document): void {
     if (!document) return;
 
-    const pos = this.documents.indexOf(document);
-    if (pos < 0) return;
+    const position = this.documents.indexOf(document);
+    if (position < 0) return;
     
-    this.documents.splice(pos, 1);
-    this.storeDocuments();
+    this.HTTP.delete(this.HTTP_URL +'/' + document.id)
+      .subscribe(
+        () => {
+          this.documents.splice(position, 1);
+          this.documentListChangedEvent.next(this.documents.slice());
+        }
+      );
+    // this.documents.splice(position, 1);
+    // this.documentListChangedEvent.next(this.documents.slice());
   }
 
   
   addDocument(newDocument: Document): void {
     if (!newDocument) return;
-    this.maxDocId++;
-    newDocument.id = this.maxDocId.toString();
-    this.documents.push(newDocument);
-    this.storeDocuments();
+
+     // make sure id of the new Document is empty
+     newDocument.id = '';
+
+     const headers = new HttpHeaders({
+       'Content-Type': 'application/json'
+      });
+ 
+     // add to database
+     this.HTTP.post<{ 
+       message: string, 
+       newDocument: Document }>
+       (this.HTTP_URL, newDocument, { headers: headers })
+       .subscribe(
+         (responseData) => {
+           // add new document to documents
+           this.documents.push(responseData.newDocument);
+           this.documentListChangedEvent.next(this.documents.slice());
+         }
+       );
+    // this.maxDocId++;
+    // newDocument.id = this.maxDocId.toString();
+    // this.documents.push(newDocument);
+    // this.storeDocuments();
   }
 
   updateDocument(originalDocument: Document, newDocument: Document): void {
@@ -80,16 +108,32 @@ export class DocumentService {
     const position = this.documents.indexOf(originalDocument);
     if (position < 0) return;
     
+    // set the id of the new Document to the id of the old Document
     newDocument.id = originalDocument.id;
-    this.documents[position] = newDocument;
-    this.storeDocuments();
+    //newDocument._id = originalDocument._id;
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    // update database
+    this.HTTP.put( this.HTTP_URL + "/" + originalDocument.id,
+      newDocument, { headers: headers })
+      .subscribe(
+        () => {
+          this.documents[position] = newDocument;
+          this.documentListChangedEvent.next(this.documents.slice());
+        }
+      );
+
+    // newDocument.id = originalDocument.id;
+    // this.documents[position] = newDocument;
+    // this.storeDocuments();
   }
 
-  storeDocuments(){
-    const docsString = JSON.stringify(this.documents);
-    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
-    this.HTTP.put<Document[]>(this.HTTP_URL, docsString, httpOptions)
-      .subscribe(() => this.documentListChangedEvent.next(this.documents.slice()));
-  }
+  // storeDocuments(){
+  //   const docsString = JSON.stringify(this.documents);
+  //   const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+  //   this.HTTP.put<Document[]>(this.HTTP_URL, docsString, httpOptions)
+  //     .subscribe(() => this.documentListChangedEvent.next(this.documents.slice()));
+  // }
 
 }
