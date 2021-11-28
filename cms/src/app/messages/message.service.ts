@@ -23,7 +23,6 @@ export class MessageService {
   messages: Message [] = [];
 
   constructor(private HTTP: HttpClient, private contactService: ContactService) { 
-    this.contacts = this.contactService.getContacts();
     this.HTTP.get<Message[]>(this.HTTP_URL)
       .subscribe((messagesList: Message[]) => {
         this.messages = messagesList;
@@ -31,6 +30,7 @@ export class MessageService {
         this.messageListChangedEvent.next(this.messages.slice());
       },
       (error: any) => { console.log(error); });
+    this.contacts = this.contactService.getContacts();
       //console.log(this.messages);
     // this.fetchPost();
     // this.messageListChangedEvent.next(this.messages.slice());
@@ -82,12 +82,12 @@ export class MessageService {
     // this.storeMessages();
   }
 
-  addMessage(newMessage: Message): void {
-    if (!newMessage.msgText || !newMessage.subject) 
+  addMessage(message: Message): void {
+    if (!message.msgText || !message.subject) 
       return;
 
       // make sure id of the new Document is empty
-      newMessage.id = '';
+      message.id = '';
 
      const headers = new HttpHeaders({
        'Content-Type': 'application/json'
@@ -95,9 +95,9 @@ export class MessageService {
  
      // add to database
      this.HTTP.post<{ 
-       message: string, 
+       text: string, 
        newMessage: Message }>
-       (this.HTTP_URL, newMessage, { headers: headers })
+       (this.HTTP_URL, message, { headers: headers })
        .subscribe(
          (responseData) => {
            // add new document to documents

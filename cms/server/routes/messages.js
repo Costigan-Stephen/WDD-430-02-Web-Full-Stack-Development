@@ -7,6 +7,7 @@ module.exports = router;
 
 router.get('/', (req, res, next) => {
     Message.find()
+        .populate()
         .then(messages => {
             res.status(200).json(messages);
         })

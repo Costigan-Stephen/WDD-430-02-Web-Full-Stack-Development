@@ -74,11 +74,11 @@ export class DocumentService {
   }
 
   
-  addDocument(newDocument: Document): void {
-    if (!newDocument) return;
+  addDocument(document: Document): void {
+    if (!document) return;
 
      // make sure id of the new Document is empty
-     newDocument.id = '';
+     document.id = '';
 
      const headers = new HttpHeaders({
        'Content-Type': 'application/json'
@@ -88,7 +88,7 @@ export class DocumentService {
      this.HTTP.post<{ 
        message: string, 
        newDocument: Document }>
-       (this.HTTP_URL, newDocument, { headers: headers })
+       (this.HTTP_URL, document, { headers: headers })
        .subscribe(
          (responseData) => {
            // add new document to documents

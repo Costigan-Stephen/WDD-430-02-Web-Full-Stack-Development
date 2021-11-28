@@ -21,16 +21,16 @@ export class MessagesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.messages = this.messageService.getMessages();
-    console.log("Messages: "+this.messages);
-    this.messageService.messageChangedEvent.subscribe((messages) => this.messages = messages.slice());
+    // console.log("Messages: "+this.messages);
+    //this.messageService.messageChangedEvent.subscribe((messages) => this.messages = messages.slice());
     
-    //this.subscription = this.messageService.messageChangedEvent.subscribe((messageList: Message[])=> this.messages = messageList);
+    this.subscription = this.messageService.messageChangedEvent.subscribe((messageList: Message[])=> this.messages = messageList);
   }
 
   onAddMessage(message: Message) {
     this.messageService.addMessage(message);
   }
 
-  //ngOnDestroy(): void { this.subscription?.unsubscribe(); }
+  ngOnDestroy(): void { this.subscription?.unsubscribe(); }
 
 }

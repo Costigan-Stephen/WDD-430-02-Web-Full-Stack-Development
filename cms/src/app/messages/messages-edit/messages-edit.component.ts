@@ -9,7 +9,7 @@ import { Message } from './../messages.model';
 })
 
 export class MessagesEditComponent implements OnInit {
-  currentSender = '19';
+  currentSender = '101';
 
   @ViewChild('subject', { static: true }) subject: ElementRef;
   @ViewChild('messageText', { static: true }) messageText: ElementRef;
@@ -31,8 +31,8 @@ export class MessagesEditComponent implements OnInit {
         this.messageText.nativeElement.value, 
         this.currentSender
       );
-      this.onClear();
       this.messageService.addMessage(newMessage);
+      this.onClear();
     }
   }
 
