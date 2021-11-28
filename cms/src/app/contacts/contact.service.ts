@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 import {Contact} from './contact.model';
-import {MOCKCONTACTS} from './MOCKCONTACTS';
+//import {MOCKCONTACTS} from './MOCKCONTACTS';
 
 @Injectable({
   providedIn: 'root'
@@ -15,24 +15,17 @@ export class ContactService {
   @Output() contactChangedEvent: EventEmitter<Contact[]> = new EventEmitter<Contact[]>();
   contactListChangedEvent = new Subject<Contact[]>();
   //HTTP_URL = environment.apiURL + "/contacts.json";
-  HTTP_URL = environment.LOCALURL + "contacts";
 
-   private contacts: Contact [] =[];
+  HTTP_URL = environment.LOCALURL + "contacts";
+  maxContactId: number;
+  private contacts: Contact [] =[];
    //private contactsListClone: Contact [] =[];
 
-   maxContactId: number;
-
-   constructor(private HTTP: HttpClient) {
+   
+  constructor(private HTTP: HttpClient) {
       // this.contacts = MOCKCONTACTS;
       // this.maxContactId = this.getMaxId();
-      this.HTTP.get<Contact[]>(this.HTTP_URL)
-      .subscribe((contactList: Contact[]) => {
-        this.contacts = contactList;
-        this.maxContactId = this.getMaxId();
-        this.contacts.sort((a, b) => parseInt(a.id) > parseInt(b.id) ? 1 : 0);
-        this.contactListChangedEvent.next(this.contacts.slice());
-      },
-      (error: any) => { console.log(error); });
+      this.fetchContacts();
    }
 
    getMaxId(): number {
@@ -45,15 +38,30 @@ export class ContactService {
     return maxId;
   }
 
+  fetchContacts(){
+    this.HTTP.get<Contact[]>(this.HTTP_URL)
+      .subscribe((contactList: Contact[]) => {
+        console.log(contactList);
+        this.contacts = contactList;
+        this.maxContactId = this.getMaxId();
+        this.contacts.sort((a, b) => parseInt(a.id) > parseInt(b.id) ? 1 : 0);
+        this.contactListChangedEvent.next(this.contacts.slice());
+      },
+      (error) => { console.log(error); });
+      console.log(this.contacts);
+  }
+
   getContacts(): Contact[]{ 
+    if(!this.contacts)
+      this.fetchContacts();
     return this.contacts.slice();
   }
 
   getContact(id: string): Contact{ 
-    for (const contact of this.contacts) {
-      if (contact.id === id) 
-        return contact;
-    }
+    if(!this.contacts)
+      this.fetchContacts();
+    for (const contact of this.contacts)
+      if (contact.id === id) return contact;
     return null;
   }
 
@@ -63,7 +71,7 @@ export class ContactService {
     const position = this.contacts.indexOf(contact);
     if ( position < 0 ) return; 
 
-    this.HTTP.delete(this.HTTP_URL +'/' + contact.id)
+    this.HTTP.delete(this.HTTP_URL + '/' + contact.id)
       .subscribe(
         () => {
           this.contacts.splice(position, 1);

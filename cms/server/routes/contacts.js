@@ -9,13 +9,10 @@ router.get('/', (req, res, next) => {
     Contact.find()
         .populate('group')
         .then(contacts => {
-            res.status(200).json({
-                message: 'Contacts fetched successfully!',
-                contacts: contacts
-            });
+            res.status(200).json(contacts);
         })
         .catch(error => {
-            errorCatch(error);
+            errorCatch(error, res);
         });
 });
 
@@ -38,7 +35,7 @@ router.post('/', (req, res, next) => {
             });
         })
         .catch(error => {
-            errorCatch(error);
+            errorCatch(error, res);
         });
 });
 
@@ -61,7 +58,7 @@ router.put('/:id', (req, res, next) => {
                     })
                 })
                 .catch(error => {
-                    errorCatch(error);
+                    errorCatch(error, res);
                 });
         })
         .catch(error => {
@@ -88,7 +85,7 @@ router.delete("/:id", (req, res, next) => {
                     });
                 })
                 .catch(error => {
-                    errorCatch(error);
+                    errorCatch(error, res);
                 });
         })
         .catch(error => {
@@ -101,7 +98,7 @@ router.delete("/:id", (req, res, next) => {
         });
 });
 
-function errorCatch(error) {
+function errorCatch(error, res) {
     return res.status(500).json({
         message: 'An error occurred',
         error: error

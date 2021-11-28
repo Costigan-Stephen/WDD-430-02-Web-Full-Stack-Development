@@ -6,6 +6,7 @@ import { Observable, Observer, Subject } from 'rxjs';
 import {MOCKMESSAGES} from './MOCKMESSAGES';
 import { Message} from './messages.model';
 import { Contact } from '../contacts/contact.model';
+import { ContactService } from '../contacts/contact.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class MessageService {
 
   messages: Message [] = [];
 
-  constructor(private HTTP: HttpClient) { 
+  constructor(private HTTP: HttpClient, private contactService: ContactService) { 
+    this.contacts = this.contactService.getContacts();
     this.HTTP.get<Message[]>(this.HTTP_URL)
       .subscribe((messagesList: Message[]) => {
         this.messages = messagesList;

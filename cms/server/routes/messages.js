@@ -11,13 +11,13 @@ router.get('/', (req, res, next) => {
             res.status(200).json(messages);
         })
         .catch(error => {
-            errorCatch(error);
+            errorCatch(error, res);
         });
 });
 
 router.post('/', (req, res, next) => {
     const maxMessageId = sequenceGenerator.nextId("messages");
-    console.log('maxMessageId', maxMessageId)
+    console.log('maxMessageId', maxMessageId);
     const message = new Message({
         id: maxMessageId,
         subject: req.body.subject,
@@ -28,11 +28,12 @@ router.post('/', (req, res, next) => {
     message.save()
         .then(createdMessage => {
             res.status(201).json({
-                message: 'Message added successfully: ' + createdMessage,
+                message: 'Message added successfully',
+                message: createdMessage
             });
         })
         .catch(error => {
-            errorCatch(error);
+            errorCatch(error, res);
         });
 });
 
@@ -54,7 +55,7 @@ router.put('/:id', (req, res, next) => {
                     })
                 })
                 .catch(error => {
-                    errorCatch(error);
+                    errorCatch(error, res);
                 });
         })
         .catch(error => {
@@ -81,7 +82,7 @@ router.delete("/:id", (req, res, next) => {
                     });
                 })
                 .catch(error => {
-                    errorCatch(error);
+                    errorCatch(error, res);
                 });
         })
         .catch(error => {
@@ -94,7 +95,7 @@ router.delete("/:id", (req, res, next) => {
         });
 });
 
-function errorCatch(error) {
+function errorCatch(error, res) {
     return res.status(500).json({
         message: 'An error occurred',
         error: error

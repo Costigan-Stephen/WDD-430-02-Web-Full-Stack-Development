@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 import {Document} from './document.model';
-import {MOCKDOCUMENTS} from './MOCKDOCUMENTS';
+//import {MOCKDOCUMENTS} from './MOCKDOCUMENTS';
 
 @Injectable({
   providedIn: 'root'
@@ -62,7 +62,7 @@ export class DocumentService {
     const position = this.documents.indexOf(document);
     if (position < 0) return;
     
-    this.HTTP.delete(this.HTTP_URL +'/' + document.id)
+    this.HTTP.delete(this.HTTP_URL + '/' + document.id)
       .subscribe(
         () => {
           this.documents.splice(position, 1);
